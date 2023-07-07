@@ -2,10 +2,13 @@ body {
     font-family: Arial, Helvetica, sans-serif;
     margin: 0;
     padding: 0;
+    background-color: #eee;
+    overflow: hidden;
 }
 
-#wrapper {
-    margin: 1em;
+main {
+    box-sizing: border-box;
+    margin: 0;
     padding: 1em;
     background-color: aqua;
 }
@@ -25,6 +28,14 @@ body {
 .btn:active {
     border-bottom: 2px solid #000 ;
     background-color: #555;
+}
+
+.day-box {
+    color: #222;
+    background-color: #fff;
+
+    width: 100px;
+    height: 100px;
 }
 
 footer {
