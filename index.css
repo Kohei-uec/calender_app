@@ -38,6 +38,11 @@ main {
     height: 100px;
 }
 
+header {
+    margin: 0;
+    padding: 0;
+}
+
 footer {
     width: 100%;
     background-color: #555;

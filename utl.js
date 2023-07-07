@@ -33,32 +33,10 @@ class Button extends MyElement{
     }
 }
 
-class Calender extends MyElement{
-    constructor(){
-        super();
 
-        this.days = [];
-
-        //make element
-        this.elm = document.createElement('div');
-        this.elm.style.backgroundColor = "#0f0";
-    }
-
-    resize(size = {width:500,height:300}){
-        this.elm.style.width = "90%";
-        this.elm.style.height = "90%";
-    }
-
-    test(){
-        this.days.push(
-            new Day(1)
-        );
-    }
-}
-
-
-class Day{
+class Day extends MyElement{
     constructor(day){
+        super();
         this.day = day;
 
         //make elment
@@ -71,11 +49,16 @@ class Day{
     }
 }
 
+//window size change
+window.onresize = resize;
+window.onload = resize;
+
 function getMainareaSize(){
     let w = window.innerWidth;
     let h = window.innerHeight;
-    h -= document.getElementById("header").clientHeight;
-    h -= document.getElementById("footer").clientHeight;
+    h -= document.getElementById("header").offsetHeight;
+    h -= document.getElementById("footer").offsetHeight;
+    console.log(document.getElementById("header").offsetHeight,document.getElementById("footer").offsetHeight);
     return {width:w, height:h};
 }
 
