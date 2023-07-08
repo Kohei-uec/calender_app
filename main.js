@@ -14,7 +14,9 @@ let calender = {
     month   : 1,
     days : []
 }
-
+calender.days.push(new Day(12));
+calender.days.push(new Day(13));
+showDays(calender.days);
 
 //test
 function testfnc(evt){
@@ -22,8 +24,9 @@ function testfnc(evt){
 }
 
 function showDays(days){
-    daysarea.innerHTML = "";
-    for(let d in days){
+    daysarea.innerHTML = "@";
+    for(let d of days){
+        //console.log(d);
         d.addTo(daysarea);
     }
 }

@@ -49,6 +49,10 @@ class Day extends MyElement{
     }
 }
 
+class Calender{
+    
+}
+
 //window size change
 window.onresize = resize;
 window.onload = resize;
