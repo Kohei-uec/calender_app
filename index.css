@@ -10,11 +10,11 @@ main {
     box-sizing: border-box;
     margin: 0;
     padding: 1em;
-    background-color: aqua;
+    /*background-color: aqua;*/
 }
 
 .btn {
-    font-size: large;
+    font-size: medium;
     color: #222;
     border: none;
     border-bottom: 2px solid #222 ;
@@ -22,12 +22,23 @@ main {
 
     box-sizing: border-box;
     padding: 0.2rem;
+    margin: 0 0.2em;
     height: fit-content;
     width: fit-content;
 }
 .btn:active {
     border-bottom: 2px solid #000 ;
     background-color: #555;
+}
+
+#ctitle {
+    display: inline-block;
+    font-size: large;
+    margin: 0 1em;
+}
+#btnarea {
+    display: inline-block;
+    margin: 0 1em;
 }
 
 .day-box {

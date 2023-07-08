@@ -25,11 +25,22 @@ class MyElement{
     }
 }
 class Button extends MyElement{
-    constructor(){
+    constructor(txt, parent, listener){
         super();
         //make element
         this.elm = document.createElement('button');
         this.elm.className = "btn";
+
+        //setting
+        if(txt){
+            this.setText(txt);
+        }
+        if(listener){
+            this.setListener(listener);
+        }
+        if(parent){
+            this.addTo(parent);
+        }
     }
 }
 
@@ -50,7 +61,7 @@ class Day extends MyElement{
 }
 
 class Calender{
-    
+
 }
 
 //window size change
