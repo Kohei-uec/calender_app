@@ -54,10 +54,10 @@ class Day extends MyElement{
         //make elment
         this.elm = document.createElement("div");
         this.elm.className = "day-box";
-
-        let h = document.createElement("h3");
-        h.innerText = date;
-        this.elm.append(h);
+        //number
+        this.h = document.createElement("h3");
+        this.h.innerText = date;
+        this.elm.append(this.h);
     }
 
     resize(width,height){
@@ -110,8 +110,8 @@ class Calender{
     constructor (year, month) {
         this.year = year;
         this.months = [];
-        this.months.push(new Month(year,month));
-        this.month = this.months[0];
+        this.months = [];
+        this.month = this.getMonth(year,month);
 
         this.days = [];
         for(let i=0; i<7; i++){
@@ -120,26 +120,32 @@ class Calender{
 
         this.dates = [];
         this.setDates();
-
-        this.showCalenderTitle();
-        this.showDays();
-        this.showDates();
     }
 
     setDates() {
-        for(let i=0; i<this.month.befordays; i++){
-            //this.dates.push(new Day(0,0)); //dammy
-        }
+        this.dates = []; //clear
+
         //前月で埋める
-        this.dates.push(...this.preMonth.days.slice(-this.month.befordays))
+        this.dates.push(...this.premonth.days.slice(-this.month.befordays))
 
         //今月
         this.dates.push(...this.month.days);
 
-        //来月
-        this.dates.push(...this.nextMonth.days.slice(0,this.month.afterdays))
+        //来月で埋める
+        this.dates.push(...this.nextmonth.days.slice(0,this.month.afterdays))
+    }
+    setToday(y,m,d){
+        let month = this.getMonth(y,m);
+        let date = month.dates[d-1];
+        date.elm
     }
 
+    show(){
+        this.showCalenderTitle();
+        daysarea.innerHTML = null;//clear
+        this.showDays();
+        this.showDates();
+    }
     showDays(){
         for(let d of this.days){
             d.addTo(daysarea);
@@ -150,13 +156,13 @@ class Calender{
             d.addTo(daysarea);
         }
     }
-
     showCalenderTitle(){
         let str = this.year+"年" + this.month.month+"月";
         montharea.innerText = str;
     }
 
-    get preMonth(){
+    //指定月のMonthを取得。無ければ生成する。
+    get premonth(){
         //調べる前の月
         let m = this.month.month - 1;
         let y = this.year;
@@ -173,7 +179,7 @@ class Calender{
         }
         return pre;
     }
-    get nextMonth(){
+    get nextmonth(){
         //調べる次の月
         let m = this.month.month + 1;
         let y = this.year;
@@ -189,6 +195,23 @@ class Calender{
             this.months.push(pre);
         }
         return pre;
+    }
+    getMonth(year,month){
+        let m = this.months.find(e=>{e.month == month && e.year == year});
+        if(!m){//無ければ新たに生成して追加
+            m = new Month(year,month);
+            this.months.push(m);
+        }
+        return m;
+    }
+
+    //月の変更
+    changeTo(year, month){
+        this.year = year;
+        this.month = this.getMonth(year,month);
+        this.setDates();
+        this.show();
+        resize()
     }
 }
 
