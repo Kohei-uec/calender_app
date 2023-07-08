@@ -11,6 +11,7 @@ let prebtn = new Button("< PRE MON", btnarea1, testfnc);
 let nextbtn = new Button("NEXT MON>", btnarea2, testfnc);
 
 let calender = new Calender(2023, 7);
+//console.log(calender.preMonth);
 let month = new Month(2023,4);
 
 //window size change

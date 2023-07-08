@@ -109,7 +109,10 @@ class Month{
 class Calender{
     constructor (year, month) {
         this.year = year;
-        this.month = new Month(year,month);
+        this.months = [];
+        this.months.push(new Month(year,month));
+        this.month = this.months[0];
+
         this.days = [];
         for(let i=0; i<7; i++){
             this.days.push(new DayHead(i));
@@ -125,14 +128,18 @@ class Calender{
 
     setDates() {
         for(let i=0; i<this.month.befordays; i++){
-            this.dates.push(new Day(0,0)); //dammy
+            //this.dates.push(new Day(0,0)); //dammy
         }
+        //前月で埋める
+        this.dates.push(...this.preMonth.days.slice(-this.month.befordays))
+
+        //今月
         this.dates.push(...this.month.days);
-        for(let i=0; i<this.month.afterdays; i++){
-            this.dates.push(new Day(0,0)); //dammy
-        }
+
+        //来月
+        this.dates.push(...this.nextMonth.days.slice(0,this.month.afterdays))
     }
-    
+
     showDays(){
         for(let d of this.days){
             d.addTo(daysarea);
@@ -145,8 +152,43 @@ class Calender{
     }
 
     showCalenderTitle(){
-        let str = this.year+"年" + this.month+"月";
+        let str = this.year+"年" + this.month.month+"月";
         montharea.innerText = str;
+    }
+
+    get preMonth(){
+        //調べる前の月
+        let m = this.month.month - 1;
+        let y = this.year;
+        if(m == 0){
+            m = 12;
+            y -= 1; 
+        }
+
+        let pre = this.months.find(e=>{e.month == m && e.year == y});
+
+        if(!pre){//無ければ新たに生成して追加
+            pre = new Month(this.year, this.month.month-1);
+            this.months.push(pre);
+        }
+        return pre;
+    }
+    get nextMonth(){
+        //調べる次の月
+        let m = this.month.month + 1;
+        let y = this.year;
+        if(m == 13){
+            m = 1;
+            y += 1; 
+        }
+
+        let pre = this.months.find(e=>{e.month == m && e.year == y});
+
+        if(!pre){//無ければ新たに生成して追加
+            pre = new Month(this.year, this.month.month-1);
+            this.months.push(pre);
+        }
+        return pre;
     }
 }
 
