@@ -58,6 +58,12 @@ class Day extends MyElement{
         h.innerText = day;
         this.elm.append(h);
     }
+
+    resize(width,height){
+        this.elm.style.margin = "1px"
+        this.elm.style.width = width-2 + "px";
+        this.elm.style.height = height-2 + "px";
+    }
 }
 
 class Calender{
@@ -71,15 +77,28 @@ window.onload = resize;
 function getMainareaSize(){
     let w = window.innerWidth;
     let h = window.innerHeight;
-    h -= document.getElementById("header").offsetHeight;
-    h -= document.getElementById("footer").offsetHeight;
-    console.log(document.getElementById("header").offsetHeight,document.getElementById("footer").offsetHeight);
+    h -= document.getElementById("header").clientHeight;
+    h -= document.getElementById("footer").clientHeight;
     return {width:w, height:h};
 }
 
 function resize(){
     let size = getMainareaSize();
-    console.log("size = ",size.width,size.height);
-    main.style.width = size.width + "px";
+    //console.log("size = ",size.width,size.height);
+
+    //main
     main.style.height = size.height + "px";
+
+    //c header
+    cheader.style.height = size.height/10 + "px";
+
+    //days area
+    daysarea.style.height = size.height*9/10 + "px"
+
+    //days
+    let w = daysarea.clientWidth/7;
+    let h = daysarea.clientHeight/6;
+    for(let d of calender.days){
+        d.resize(w,h);
+    }
 }

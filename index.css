@@ -1,5 +1,5 @@
 body {
-    font-family: Arial, Helvetica, sans-serif;
+    /*font-family: Arial, Helvetica, sans-serif;*/
     margin: 0;
     padding: 0;
     background-color: #eee;
@@ -9,7 +9,7 @@ body {
 main {
     box-sizing: border-box;
     margin: 0;
-    padding: 1em;
+    padding: 0;
     /*background-color: aqua;*/
 }
 
@@ -31,28 +31,58 @@ main {
     background-color: #555;
 }
 
+#cheader {
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    position: relative;
+}
+#cheadwrap {
+    position: absolute;
+    bottom: 10%;
+    width: 100%;
+}
 #ctitle {
     display: inline-block;
     font-size: large;
     margin: 0 1em;
 }
-#btnarea {
+#btnarea1 {
     display: inline-block;
     margin: 0 1em;
+}
+#btnarea2 {
+    display: inline-block;
+    margin: 0 1em;
+}
+#daysarea {
+    width: 100%;
 }
 
 .day-box {
     display: inline-block;
     color: #222;
     background-color: #fff;
+    text-align: center;
+
 
     box-sizing: border-box;
-    margin: 1em;
+    margin: 0;
     width: 100px;
     height: 100px;
 }
+.day-box:hover {
+    background-color: #ccc;
+}
+.day-box h3 {
+    margin: 0;
+    padding: 0;
+    margin-top: 5%;
+}
 
 header, footer {
+    font-size: large;
     width: 100%;
     background-color: #555;
     color: #fff;

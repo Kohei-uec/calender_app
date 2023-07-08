@@ -1,19 +1,21 @@
 console.log("load js file");
 
 let main = document.getElementById("main");
+let cheader = document.getElementById("cheader");
 let montharea = document.getElementById("ctitle");
-let btnarea = document.getElementById("btnarea");
+let btnarea1 = document.getElementById("btnarea1");
+let btnarea2 = document.getElementById("btnarea2");
 let daysarea = document.getElementById("daysarea");
 
-let prebtn = new Button("< PRE", btnarea, testfnc);
-let nextbtn = new Button("NEXT >", btnarea, testfnc);
+let prebtn = new Button("< PRE", btnarea1, testfnc);
+let nextbtn = new Button("NEXT >", btnarea2, testfnc);
 
 let calender = {
     year    : 2023,
     month   : 1,
     days : []
 }
-for (let i=0;i<30; i++){
+for (let i=0;i<37; i++){
     calender.days.push(new Day(i));
 }
 
@@ -56,6 +58,7 @@ function showDays(days){
         d.addTo(daysarea);
     }
 }
+
 
 function showCalenderTitle(y,m,option){
     let str = y+"年" + m+"月" + (option??"");
