@@ -67,6 +67,19 @@ class Day extends MyElement{
         this.elm.style.height = height-margin*2 + "px";
     }
 }
+class DayHead extends Day {
+    static names = ["日","月","火","水","木","金","土"];
+    constructor(day){
+        super(DayHead.names[day],day);
+        if(day == 0){
+            this.elm.style.backgroundColor = "#fdd";
+        }else if(day == 6){
+            this.elm.style.backgroundColor = "#cdf";
+        }else{
+            this.elm.style.backgroundColor = "#ddd";
+        }
+    }
+}
 
 class Month{
     constructor(year ,month){
@@ -98,24 +111,35 @@ class Calender{
         this.year = year;
         this.month = new Month(year,month);
         this.days = [];
-        
-        this.setDays();
+        for(let i=0; i<7; i++){
+            this.days.push(new DayHead(i));
+        }
+
+        this.dates = [];
+        this.setDates();
+
         this.showCalenderTitle();
         this.showDays();
+        this.showDates();
     }
 
-    setDays() {
+    setDates() {
         for(let i=0; i<this.month.befordays; i++){
-            this.days.push(new Day(0,0)); //dammy
+            this.dates.push(new Day(0,0)); //dammy
         }
-        this.days.push(...this.month.days);
+        this.dates.push(...this.month.days);
         for(let i=0; i<this.month.afterdays; i++){
-            this.days.push(new Day(0,0)); //dammy
+            this.dates.push(new Day(0,0)); //dammy
         }
     }
     
     showDays(){
         for(let d of this.days){
+            d.addTo(daysarea);
+        }
+    }
+    showDates(){
+        for(let d of this.dates){
             d.addTo(daysarea);
         }
     }
@@ -176,8 +200,11 @@ function resize(){
 
     //days
     let w = daysarea.clientWidth/7;
-    let h = daysarea.clientHeight/6;
+    let h = daysarea.clientHeight/6.5;
     for(let d of calender.days){
+        d.resize(w,h/2);
+    }
+    for(let d of calender.dates){
         d.resize(w,h);
     }
 }
