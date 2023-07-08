@@ -66,13 +66,6 @@ class Day extends MyElement{
         this.elm.style.width = width-margin*2 + "px";
         this.elm.style.height = height-margin*2 + "px";
     }
-
-    today(){
-        //this.elm.style.borderBlockColor = "#cff";
-        //this.elm.style.border = "1px";
-        console.log("today!");
-        this.elm.style.backgroundColor = "#cff";
-    }
 }
 class DayHead extends Day {
     static names = ["日","月","火","水","木","金","土"];
@@ -143,9 +136,10 @@ class Calender{
     }
     setToday(y,m,d){
         let month = this.getMonth(y,m);
-        console.log(month);
         let date = month.dates[d-1];
-        date.today();
+        date.elm.className = "today-box";
+        console.log(date.elm.classList);
+
     }
 
     show(){
