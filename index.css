@@ -14,10 +14,10 @@ main {
 }
 
 .btn {
-    font-size: medium;
+    font-size: larger;
     color: #222;
     border: none;
-    border-bottom: 2px solid #222 ;
+    border-bottom: 2px solid #ccc ;
     background-color: #fff;
 
     box-sizing: border-box;
@@ -26,9 +26,14 @@ main {
     height: fit-content;
     width: fit-content;
 }
+.btn:hover {
+    background-color: #ccc;
+    border-color: #555;
+}
 .btn:active {
-    border-bottom: 2px solid #000 ;
+    color: #ccc;
     background-color: #555;
+    border-color: #222;
 }
 
 #cheader {
@@ -45,7 +50,7 @@ main {
 }
 #ctitle {
     display: inline-block;
-    font-size: large;
+    font-size: x-large;
     margin: 0 1em;
 }
 #btnarea1 {

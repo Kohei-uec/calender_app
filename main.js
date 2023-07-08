@@ -10,57 +10,14 @@ let daysarea = document.getElementById("daysarea");
 let prebtn = new Button("< PRE", btnarea1, testfnc);
 let nextbtn = new Button("NEXT >", btnarea2, testfnc);
 
-let calender = {
-    year    : 2023,
-    month   : 1,
-    days : []
-}
-for (let i=0;i<37; i++){
-    calender.days.push(new Day(i));
-}
+let calender = new Calender(2023, 7);
+let month = new Month(2023,4);
 
-showDays(calender.days);
-showCalenderTitle(calender.year,calender.month);
+//window size change
+window.onresize = resize;
+window.onload = resize;
 
 //test
 function testfnc(){
     console.log("test!");
-}
-
-function getHolidays(y,m,callback){
-    if(m<10){//MMに変換
-        m = "0" + m;
-    }
-    let url = "https://api.national-holidays.jp/" + y + m;
-
-    const req = new XMLHttpRequest();
-    req.addEventListener("load", function () {
-        holidays = JSON.parse(this.response);
-        console.log(holidays);
-        callback();
-    });
-    req.open("GET", url);
-    req.send();
-}
-
-let holidays;
-getHolidays(2023,5,()=>{
-    for(let holiday of holidays){
-        console.log(holiday);
-    }
-});
-
-
-function showDays(days){
-    //daysarea.innerHTML = "@";
-    for(let d of days){
-        //console.log(d);
-        d.addTo(daysarea);
-    }
-}
-
-
-function showCalenderTitle(y,m,option){
-    let str = y+"年" + m+"月" + (option??"");
-    montharea.innerText = str;
 }

@@ -46,8 +46,9 @@ class Button extends MyElement{
 
 
 class Day extends MyElement{
-    constructor(day){
+    constructor(date, day){
         super();
+        this.date = date;
         this.day = day;
 
         //make elment
@@ -55,25 +56,103 @@ class Day extends MyElement{
         this.elm.className = "day-box";
 
         let h = document.createElement("h3");
-        h.innerText = day;
+        h.innerText = date;
         this.elm.append(h);
     }
 
     resize(width,height){
-        this.elm.style.margin = "1px"
-        this.elm.style.width = width-2 + "px";
-        this.elm.style.height = height-2 + "px";
+        let margin = 1;
+        this.elm.style.margin =  margin + "px"
+        this.elm.style.width = width-margin*2 + "px";
+        this.elm.style.height = height-margin*2 + "px";
+    }
+}
+
+class Month{
+    constructor(year ,month){
+        this.month = month;
+        this.year = year;
+
+        this.days = [];
+
+        let i=1;
+        let date = new Date(year,month-1,i);//1月がmonth=0
+        while(date.getMonth() == month-1){
+            this.days.push(
+                new Day(date.getDate(),date.getDay())
+            );
+            date.setDate(++i);
+        }
+    }
+
+    get befordays() {
+        return this.days[0].day;
+    }
+    get afterdays() {
+        return 6 - this.days[this.days.length - 1].day;
     }
 }
 
 class Calender{
+    constructor (year, month) {
+        this.year = year;
+        this.month = new Month(year,month);
+        this.days = [];
+        
+        this.setDays();
+        this.showCalenderTitle();
+        this.showDays();
+    }
 
+    setDays() {
+        for(let i=0; i<this.month.befordays; i++){
+            this.days.push(new Day(0,0)); //dammy
+        }
+        this.days.push(...this.month.days);
+        for(let i=0; i<this.month.afterdays; i++){
+            this.days.push(new Day(0,0)); //dammy
+        }
+    }
+    
+    showDays(){
+        for(let d of this.days){
+            d.addTo(daysarea);
+        }
+    }
+
+    showCalenderTitle(){
+        let str = this.year+"年" + this.month+"月";
+        montharea.innerText = str;
+    }
 }
 
-//window size change
-window.onresize = resize;
-window.onload = resize;
+// Holidays API
+// https://api.national-holidays.jp/
+function getHolidays(y,m,callback){
+    if(m<10){//MMに変換
+        m = "0" + m;
+    }
+    let url = "https://api.national-holidays.jp/" + y + m;
 
+    const req = new XMLHttpRequest();
+    req.addEventListener("load", function () {
+        holidays = JSON.parse(this.response);
+        console.log(holidays);
+        callback();
+    });
+    req.open("GET", url);
+    req.send();
+}
+
+let holidays;
+getHolidays(2023,5,()=>{
+    for(let holiday of holidays){
+        console.log(holiday);
+    }
+});
+
+
+//window size change
 function getMainareaSize(){
     let w = window.innerWidth;
     let h = window.innerHeight;
