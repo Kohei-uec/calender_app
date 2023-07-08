@@ -66,6 +66,13 @@ class Day extends MyElement{
         this.elm.style.width = width-margin*2 + "px";
         this.elm.style.height = height-margin*2 + "px";
     }
+
+    today(){
+        //this.elm.style.borderBlockColor = "#cff";
+        //this.elm.style.border = "1px";
+        console.log("today!");
+        this.elm.style.backgroundColor = "#cff";
+    }
 }
 class DayHead extends Day {
     static names = ["日","月","火","水","木","金","土"];
@@ -86,12 +93,12 @@ class Month{
         this.month = month;
         this.year = year;
 
-        this.days = [];
+        this.dates = [];
 
         let i=1;
         let date = new Date(year,month-1,i);//1月がmonth=0
         while(date.getMonth() == month-1){
-            this.days.push(
+            this.dates.push(
                 new Day(date.getDate(),date.getDay())
             );
             date.setDate(++i);
@@ -99,10 +106,10 @@ class Month{
     }
 
     get befordays() {
-        return this.days[0].day;
+        return this.dates[0].day;
     }
     get afterdays() {
-        return 6 - this.days[this.days.length - 1].day;
+        return 6 - this.dates[this.dates.length - 1].day;
     }
 }
 
@@ -126,18 +133,19 @@ class Calender{
         this.dates = []; //clear
 
         //前月で埋める
-        this.dates.push(...this.premonth.days.slice(-this.month.befordays))
+        this.dates.push(...this.premonth.dates.slice(-this.month.befordays))
 
         //今月
-        this.dates.push(...this.month.days);
+        this.dates.push(...this.month.dates);
 
         //来月で埋める
-        this.dates.push(...this.nextmonth.days.slice(0,this.month.afterdays))
+        this.dates.push(...this.nextmonth.dates.slice(0,this.month.afterdays))
     }
     setToday(y,m,d){
         let month = this.getMonth(y,m);
+        console.log(month);
         let date = month.dates[d-1];
-        date.elm
+        date.today();
     }
 
     show(){
