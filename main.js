@@ -8,8 +8,7 @@ let btnarea2 = document.getElementById("btnarea2");
 let daysarea = document.getElementById("daysarea");
 
 let today = new Date();
-let calender = new Calender(today.getFullYear(), today.getMonth()+1);
-calender.setToday(today.getFullYear(), today.getMonth()+1, today.getDate())
+let calender = new Calender(today.getFullYear(), today.getMonth()+1, today.getDate());
 calender.show();
 
 let prebtn = new Button("< PRE MON", btnarea1, ()=>{

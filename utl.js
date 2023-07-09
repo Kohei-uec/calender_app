@@ -107,9 +107,8 @@ class Month{
 }
 
 class Calender{
-    constructor (year, month) {
+    constructor (year, month, date) {
         this.year = year;
-        this.months = [];
         this.months = [];
         this.month = this.getMonth(year,month);
 
@@ -119,6 +118,7 @@ class Calender{
         }
 
         this.dates = [];
+        this.setToday(year, month, date);
         this.setDates();
     }
 
@@ -135,11 +135,8 @@ class Calender{
         this.dates.push(...this.nextmonth.dates.slice(0,this.month.afterdays))
     }
     setToday(y,m,d){
-        let month = this.getMonth(y,m);
-        let date = month.dates[d-1];
-        date.elm.className = "today-box";
-        console.log(date.elm.classList);
-
+        let date = this.getMonth(y,m).dates[d-1];
+        date.elm.className += " today-box";
     }
 
     show(){
@@ -172,14 +169,7 @@ class Calender{
             m = 12;
             y -= 1; 
         }
-
-        let pre = this.months.find(e=>{e.month == m && e.year == y});
-
-        if(!pre){//無ければ新たに生成して追加
-            pre = new Month(this.year, this.month.month-1);
-            this.months.push(pre);
-        }
-        return pre;
+        return this.getMonth(y,m);
     }
     get nextmonth(){
         //調べる次の月
@@ -189,17 +179,12 @@ class Calender{
             m = 1;
             y += 1; 
         }
-
-        let pre = this.months.find(e=>{e.month == m && e.year == y});
-
-        if(!pre){//無ければ新たに生成して追加
-            pre = new Month(this.year, this.month.month-1);
-            this.months.push(pre);
-        }
-        return pre;
+        return this.getMonth(y,m);
     }
     getMonth(year,month){
-        let m = this.months.find(e=>{e.month == month && e.year == year});
+        let m = this.months.find(e=>{
+            return e.month == month && e.year == year
+        });
         if(!m){//無ければ新たに生成して追加
             m = new Month(year,month);
             this.months.push(m);

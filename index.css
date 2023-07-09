@@ -86,7 +86,8 @@ main {
     margin-top: 3px;
 }
 .today-box {
-    background-color: #cff;
+    color: rgb(4, 103, 80);
+    border: 2px solid rgb(4, 103, 80);
 }
 
 header, footer {
