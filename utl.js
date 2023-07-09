@@ -247,7 +247,7 @@ class Calender{
 }
 
 // Holidays API
-// https://api.national-holidays.jp/
+// https://national-holidays.jp/
 function getHolidays(y,m,callback){
     if(m<10){//MMに変換
         m = "0" + m;
