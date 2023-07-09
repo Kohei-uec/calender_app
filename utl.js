@@ -58,6 +58,13 @@ class Day extends MyElement{
         this.h = document.createElement("h3");
         this.h.innerText = date;
         this.elm.append(this.h);
+        //text
+        this.txt = document.createElement("div");
+        this.elm.append(this.txt);
+
+        if(this.day == 0){//日曜は赤字
+            this.color = "#d22"
+        }
     }
 
     resize(width,height){
@@ -66,6 +73,14 @@ class Day extends MyElement{
         this.elm.style.width = width-margin*2 + "px";
         this.elm.style.height = height-margin*2 + "px";
     }
+
+    set inText(txt){
+        this.txt.innerText = txt;
+    }
+    set color(clr){
+        this.elm.style.color = clr;
+    }
+
 }
 class DayHead extends Day {
     static names = ["日","月","火","水","木","金","土"];
@@ -96,6 +111,8 @@ class Month{
             );
             date.setDate(++i);
         }
+
+        this.setHolidays();
     }
 
     get befordays() {
@@ -104,6 +121,22 @@ class Month{
     get afterdays() {
         return 6 - this.dates[this.dates.length - 1].day;
     }
+
+    
+    //祝日の取得と反映
+    setHolidays(){
+        getHolidays(this.year,this.month,(days)=>{
+            for(let holiday of days){
+                //console.log(holiday);
+                let date = new Date(holiday.date);
+                let d = this.dates[date.getDate() - 1];
+                d.inText = holiday.name;
+                d.color = "#d22";
+            }
+            //calender.show();
+        });
+    }
+
 }
 
 class Calender{
@@ -126,7 +159,9 @@ class Calender{
         this.dates = []; //clear
 
         //前月で埋める
-        this.dates.push(...this.premonth.dates.slice(-this.month.befordays))
+        if(this.month.befordays != 0){
+            this.dates.push(...this.premonth.dates.slice(-this.month.befordays))
+        }
 
         //今月
         this.dates.push(...this.month.dates);
@@ -141,16 +176,20 @@ class Calender{
 
     show(){
         this.showCalenderTitle();
-        daysarea.innerHTML = null;//clear
         this.showDays();
         this.showDates();
     }
     showDays(){
+        daysarea.innerHTML = null;//clear
         for(let d of this.days){
             d.addTo(daysarea);
         }
     }
     showDates(){
+        //clear weeks
+        for(let w of weekareas){
+            w.innerHTML = null;
+        }
         let i = 0;
         for(let d of this.dates){
             d.addTo(weekareas[parseInt((i++)/7)]);
@@ -192,6 +231,9 @@ class Calender{
         }
         return m;
     }
+    getDate(year,month,date){
+        return this.getMonth(year,month).dates[date-1];
+    }
 
     //月の変更
     changeTo(year, month){
@@ -201,6 +243,7 @@ class Calender{
         this.show();
         resize()
     }
+
 }
 
 // Holidays API
@@ -214,19 +257,15 @@ function getHolidays(y,m,callback){
     const req = new XMLHttpRequest();
     req.addEventListener("load", function () {
         holidays = JSON.parse(this.response);
-        console.log(holidays);
-        callback();
+        if(holidays[0]){
+            callback(holidays);
+        }
     });
     req.open("GET", url);
     req.send();
 }
-
 let holidays;
-getHolidays(2023,5,()=>{
-    for(let holiday of holidays){
-        console.log(holiday);
-    }
-});
+
 
 
 //window size change
@@ -240,7 +279,7 @@ function getMainareaSize(){
 
 function resize(){
     let size = getMainareaSize();
-    console.log("size = ",size.width,size.height);
+    //console.log("size = ",size.width,size.height);
 
     //main
     main.style.height = size.height + "px";

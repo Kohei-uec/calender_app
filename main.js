@@ -1,4 +1,4 @@
-console.log("load js file");
+console.log("load main.js");
 
 let main = document.getElementById("main");
 let cheader = document.getElementById("cheader");
