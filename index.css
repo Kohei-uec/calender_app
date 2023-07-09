@@ -10,6 +10,7 @@ main {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    width: 100%;
     /*background-color: aqua;*/
 }
 
@@ -61,8 +62,10 @@ main {
     display: inline-block;
     margin: 0 1em;
 }
-#daysarea {
+.week {
     width: 100%;
+    display: flex;
+    justify-content: center;
 }
 
 .day-box {
@@ -71,9 +74,7 @@ main {
     background-color: #fff;
     text-align: center;
 
-
     box-sizing: border-box;
-    margin: 0;
     width: 100px;
     height: 100px;
 }

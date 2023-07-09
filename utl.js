@@ -151,8 +151,9 @@ class Calender{
         }
     }
     showDates(){
+        let i = 0;
         for(let d of this.dates){
-            d.addTo(daysarea);
+            d.addTo(weekareas[parseInt((i++)/7)]);
         }
     }
     showCalenderTitle(){
@@ -239,7 +240,7 @@ function getMainareaSize(){
 
 function resize(){
     let size = getMainareaSize();
-    //console.log("size = ",size.width,size.height);
+    console.log("size = ",size.width,size.height);
 
     //main
     main.style.height = size.height + "px";
@@ -247,12 +248,9 @@ function resize(){
     //c header
     cheader.style.height = size.height/10 + "px";
 
-    //days area
-    daysarea.style.height = size.height*9/10 + "px"
-
-    //days
+    //days and dates
     let w = daysarea.clientWidth/7;
-    let h = daysarea.clientHeight/6.5;
+    let h = size.height*9/10/6.5;
     for(let d of calender.days){
         d.resize(w,h/2);
     }

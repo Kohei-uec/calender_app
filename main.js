@@ -6,6 +6,14 @@ let montharea = document.getElementById("ctitle");
 let btnarea1 = document.getElementById("btnarea1");
 let btnarea2 = document.getElementById("btnarea2");
 let daysarea = document.getElementById("daysarea");
+let weekareas = [
+    document.getElementById("week1"),
+    document.getElementById("week2"),
+    document.getElementById("week3"),
+    document.getElementById("week4"),
+    document.getElementById("week5"),
+    document.getElementById("week6"),
+]
 
 let today = new Date();
 let calender = new Calender(today.getFullYear(), today.getMonth()+1, today.getDate());
