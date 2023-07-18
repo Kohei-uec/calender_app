@@ -89,6 +89,13 @@ main {
 .today-box {
     border: 2px solid rgb(4, 103, 80);
 }
+.day-note {
+    color: #222;
+    font-size: medium;
+
+    margin: 0;
+    padding: 0;
+}
 
 header, footer {
     font-size: large;

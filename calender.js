@@ -54,13 +54,18 @@ class Day extends MyElement{
         //make elment
         this.elm = document.createElement("div");
         this.elm.className = "day-box";
+        this.elm.onclick = ()=>{this.setNote();};
         //number
         this.h = document.createElement("h3");
         this.h.innerText = date;
         this.elm.append(this.h);
-        //text
-        this.txt = document.createElement("div");
-        this.elm.append(this.txt);
+        //holidayname
+        this.dayname = document.createElement("div");
+        this.elm.append(this.dayname);
+        //note
+        this.note = document.createElement("div");
+        this.note.className = "day-note";
+        this.elm.append(this.note);
 
         if(this.day == 0){//日曜は赤字
             this.color = "#d22"
@@ -74,8 +79,15 @@ class Day extends MyElement{
         this.elm.style.height = height-margin*2 + "px";
     }
 
-    set inText(txt){
-        this.txt.innerText = txt;
+    setNote(){
+        let txt = prompt(this.date + "日の予定", this.note.innerText);
+        if(txt !== null){
+            this.note.innerText = txt;
+        }
+    }
+
+    set Dayname(txt){
+        this.dayname.innerText = txt;
     }
     set color(clr){
         this.elm.style.color = clr;
@@ -130,7 +142,7 @@ class Month{
                 //console.log(holiday);
                 let date = new Date(holiday.date);
                 let d = this.dates[date.getDate() - 1];
-                d.inText = holiday.name;
+                d.Dayname = holiday.name;
                 d.color = "#d22";
             }
             //calender.show();
