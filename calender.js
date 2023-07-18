@@ -46,8 +46,10 @@ class Button extends MyElement{
 
 
 class Day extends MyElement{
-    constructor(date, day){
+    constructor(year, month, date, day){
         super();
+        this.year = year;
+        this.month = month;
         this.date = date;
         this.day = day;
 
@@ -79,10 +81,17 @@ class Day extends MyElement{
         this.elm.style.height = height-margin*2 + "px";
     }
 
-    setNote(){
-        let txt = prompt(this.date + "日の予定", this.note.innerText);
+    setNote(txt){
+        if(!txt){txt = prompt(this.date + "日の予定", this.note.innerText);}
         if(txt !== null){
+            let d = notes.find((n)=>{n.year == this.year && n.month == this.month && n.date == this.date});
+            if(!d){
+                d = notes.push(new Note(this.year, this.month, this.date, txt))
+            }else{
+                d.txt = txt;
+            }
             this.note.innerText = txt;
+            save_notes();
         }
     }
 
@@ -97,7 +106,7 @@ class Day extends MyElement{
 class DayHead extends Day {
     static names = ["日","月","火","水","木","金","土"];
     constructor(day){
-        super(DayHead.names[day],day);
+        super(null,null,DayHead.names[day],day);
         if(day == 0){
             this.elm.style.backgroundColor = "#fdd";
         }else if(day == 6){
@@ -119,7 +128,7 @@ class Month{
         let date = new Date(year,month-1,i);//1月がmonth=0
         while(date.getMonth() == month-1){
             this.dates.push(
-                new Day(date.getDate(),date.getDay())
+                new Day(year, month, date.getDate(),date.getDay())
             );
             date.setDate(++i);
         }

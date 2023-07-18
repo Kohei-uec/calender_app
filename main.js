@@ -42,3 +42,44 @@ let nextbtn = new Button("NEXT MON>", btnarea2, ()=>{
 //window size change
 window.onresize = resize;
 window.onload = resize;
+
+
+//Notes
+//スケジュールをローカルストレージに保存、読み込み
+
+let Note = function(y,m,d,txt){
+    this.year = y;
+    this.month = m;
+    this.date = d;
+    this.txt = txt;
+}
+let notes = [];
+
+function save_notes(){
+    let str = JSON.stringify(notes);
+    localStorage.setItem("notes",str);
+    console.log("save");
+}
+
+function load_notes(){
+    let dat = localStorage.getItem("notes");
+    if(dat === null){return;}
+    dat = JSON.parse(dat);
+
+    //apply the txt in days
+    for(let n of dat){
+        calender.getDate(n.year, n.month, n.date).setNote(n.txt);
+    }
+}
+
+load_notes();//ページ読み込み時
+
+let test = new Button("save", btnarea2, ()=>{
+    save_notes();
+});
+let test2 = new Button("load", btnarea2, ()=>{
+    load_notes();
+});
+let test3 = new Button("clear", btnarea2, ()=>{
+    localStorage.clear();
+});
