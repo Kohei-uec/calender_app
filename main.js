@@ -74,6 +74,8 @@ function load_notes(){
 
 load_notes();//ページ読み込み時
 
+//test
+/*
 let test = new Button("save", btnarea2, ()=>{
     save_notes();
 });
@@ -83,3 +85,4 @@ let test2 = new Button("load", btnarea2, ()=>{
 let test3 = new Button("clear", btnarea2, ()=>{
     localStorage.clear();
 });
+*/

@@ -82,7 +82,7 @@ class Day extends MyElement{
     }
 
     setNote(txt){
-        if(!txt){txt = prompt(this.date + "日の予定", this.note.innerText);}
+        if(txt === undefined){txt = prompt(this.date + "日の予定", this.note.innerText);}
         if(txt !== null){
             let d = notes.find((n)=>{n.year == this.year && n.month == this.month && n.date == this.date});
             if(!d){
